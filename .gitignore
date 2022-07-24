@@ -1,1 +1,5 @@
 ./Jest/node_modules
+/Jest/node_modules/
+/Jest/package-lock.json
+/.idea/vcs.xml
+/.idea/testing-crash-course.iml
