@@ -3,3 +3,4 @@
 /Jest/package-lock.json
 /.idea/vcs.xml
 /.idea/testing-crash-course.iml
+/Jest/coverage/
