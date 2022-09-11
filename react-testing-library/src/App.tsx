@@ -1,6 +1,6 @@
-import Checkout from "./components/Checkout";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
+import Checkout from "./components/Checkout/Checkout";
+import Login from "./components/Checkout/Login";
+import SignUp from "./components/SignUp/SignUp";
 import AppContext, { useAppContext } from "./contexts/AppContext";
 
 function Routes() {

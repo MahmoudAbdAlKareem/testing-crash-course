@@ -10,8 +10,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useAppContext } from "../contexts/AppContext";
-import { signUp } from "../APIs";
+import { useAppContext } from "../../contexts/AppContext";
+import { signUp } from "../../APIs";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -86,7 +86,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign Up
           </Typography>
           <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
