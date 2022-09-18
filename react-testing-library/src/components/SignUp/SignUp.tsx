@@ -47,8 +47,19 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({ onSubmit = (values) => {} }) {
   const { setIsAuthenticated, showSnackbar } = useAppContext();
+  const handleSubmit = (values) => {
+    signUp(values)
+      .then((user) => {
+        showSnackbar("Signed Up Successfully!");
+        setIsAuthenticated(true);
+      })
+      .catch((err) => {
+        showSnackbar("Something went wrong!");
+      });
+    onSubmit(values);
+  };
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -57,16 +68,7 @@ export default function SignUp() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      signUp(values)
-        .then((user) => {
-          showSnackbar("Signed Up Successfully!");
-          console.log("user", user);
-          setIsAuthenticated(true);
-        })
-        .catch((err) => {
-          showSnackbar("Something went wrong!");
-          console.error(err);
-        });
+      handleSubmit(values);
     },
   });
 
