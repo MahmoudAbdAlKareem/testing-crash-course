@@ -4,7 +4,6 @@ import render from "../../tests/render";
 import userEvent from "@testing-library/user-event";
 import { mockedSuccessUser, mockedUser } from "./fixtures";
 import axios from "axios";
-jest.mock("axios");
 
 const getters = {
   getEmailInput: () => screen.getByLabelText(/^Email Address/),
@@ -60,9 +59,9 @@ describe("components/SignUp", () => {
   describe("Basic Functionality", () => {
     it("Should submit the form with the required data", async () => {
       const handleSubmit = jest.fn();
-      (axios.post as any).mockImplementation((url) =>
-        Promise.resolve(mockedSuccessUser)
-      );
+      jest
+        .spyOn(axios, "post")
+        .mockImplementation((url) => Promise.resolve(mockedSuccessUser));
       render(<SignUp onSubmit={handleSubmit} />);
       const signUpButton = getters.getSignUpButton();
       const emailInput = getters.getEmailInput();
@@ -79,9 +78,9 @@ describe("components/SignUp", () => {
     it("Should call SingUp API upon submitting", async () => {
       const handleSubmit = jest.fn();
       render(<SignUp onSubmit={handleSubmit} />);
-      const signUpAPI = (axios.post as any).mockImplementation((url) =>
-        Promise.resolve(mockedSuccessUser)
-      );
+      const signUpAPI = jest
+        .spyOn(axios, "post")
+        .mockImplementation((url) => Promise.resolve(mockedSuccessUser));
       const signUpButton = getters.getSignUpButton();
       const emailInput = getters.getEmailInput();
       const passwordInput = getters.getPasswordInput();
