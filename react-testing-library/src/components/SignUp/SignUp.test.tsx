@@ -15,6 +15,17 @@ const getters = {
     }),
 };
 
+export const signUpUser = async () => {
+  const signUpButton = getters.getSignUpButton();
+  const emailInput = getters.getEmailInput();
+  const passwordInput = getters.getPasswordInput();
+  const userNameInput = getters.getUserNameInput();
+  await userEvent.type(userNameInput, mockedUser.username);
+  await userEvent.type(emailInput, mockedUser.email);
+  await userEvent.type(passwordInput, mockedUser.password);
+  await userEvent.click(signUpButton);
+};
+
 describe("components/SignUp", () => {
   /**
    * @group smoke
@@ -57,20 +68,16 @@ describe("components/SignUp", () => {
     });
   });
   describe("Basic Functionality", () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
     it("Should submit the form with the required data", async () => {
       const handleSubmit = jest.fn();
       jest
         .spyOn(axios, "post")
         .mockImplementation((url) => Promise.resolve(mockedSuccessUser));
       render(<SignUp onSubmit={handleSubmit} />);
-      const signUpButton = getters.getSignUpButton();
-      const emailInput = getters.getEmailInput();
-      const passwordInput = getters.getPasswordInput();
-      const userNameInput = getters.getUserNameInput();
-      userEvent.type(userNameInput, mockedUser.username);
-      userEvent.type(emailInput, mockedUser.email);
-      userEvent.type(passwordInput, mockedUser.password);
-      userEvent.click(signUpButton);
+      await signUpUser();
       await waitFor(() =>
         expect(handleSubmit).toHaveBeenCalledWith(mockedUser)
       );
@@ -81,14 +88,7 @@ describe("components/SignUp", () => {
       const signUpAPI = jest
         .spyOn(axios, "post")
         .mockImplementation((url) => Promise.resolve(mockedSuccessUser));
-      const signUpButton = getters.getSignUpButton();
-      const emailInput = getters.getEmailInput();
-      const passwordInput = getters.getPasswordInput();
-      const userNameInput = getters.getUserNameInput();
-      userEvent.type(userNameInput, mockedUser.username);
-      userEvent.type(emailInput, mockedUser.email);
-      userEvent.type(passwordInput, mockedUser.password);
-      userEvent.click(signUpButton);
+      await signUpUser();
       await waitFor(() => {
         expect(signUpAPI).toBeCalled();
       });
