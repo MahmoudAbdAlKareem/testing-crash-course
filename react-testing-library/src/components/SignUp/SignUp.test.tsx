@@ -4,6 +4,7 @@ import render from "../../tests/render";
 import userEvent from "@testing-library/user-event";
 import { mockedSuccessUser, mockedUser } from "./fixtures";
 import axios from "axios";
+import preview from "jest-preview";
 
 const getters = {
   getEmailInput: () => screen.getByLabelText(/^Email Address/),
@@ -33,6 +34,7 @@ describe("components/SignUp", () => {
   describe("Smoke Tests", () => {
     it("Should render SignUp Component correctly", () => {
       render(<SignUp />);
+
       const signUpButton = getters.getSignUpButton();
       const emailInput = getters.getEmailInput();
       const passwordInput = getters.getPasswordInput();
@@ -92,6 +94,16 @@ describe("components/SignUp", () => {
       await waitFor(() => {
         expect(signUpAPI).toBeCalled();
       });
+      preview.debug();
     });
+  });
+});
+
+describe("Debugging Tutorial", () => {
+  test("Test DEBUG_PRINT_LIMIT", () => {
+    render(<SignUp />);
+    const emailAddressInput = screen.getByText(/^Email Test/);
+    expect(emailAddressInput).toBeInTheDocument();
+    preview.debug();
   });
 });

@@ -9,8 +9,8 @@ import { signUpUser } from "../../../components/SignUp/SignUp.test";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { mockedSuccessUser } from "../../../components/SignUp/fixtures";
+import preview from "jest-preview";
 
-jest.setTimeout(100000000);
 export const handlers = [
   rest.post("*/users", (req, res, ctx) => {
     return res(ctx.json(mockedSuccessUser), ctx.delay(100));
@@ -31,6 +31,7 @@ afterAll(() => server.close());
 describe("Sign Up Flow", () => {
   it("Should redirect the user to the checkout page after signup process is completed", async () => {
     render(<App />);
+    preview.debug();
     await signUpUser();
     await waitForElementToBeRemoved(() =>
       screen.queryByRole("button", {
@@ -40,5 +41,6 @@ describe("Sign Up Flow", () => {
     await waitFor(() => {
       expect(screen.getByText("Checkout")).toBeInTheDocument();
     });
+    // preview.debug();
   });
 });

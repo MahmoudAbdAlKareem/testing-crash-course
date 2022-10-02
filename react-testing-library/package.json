@@ -16,6 +16,7 @@
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
+    "jest-preview": "^0.3.1",
     "msw": "^0.47.3",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
@@ -29,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "jest-preview": "jest-preview"
   },
   "eslintConfig": {
     "extends": [
